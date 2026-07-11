@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - SkoolyAI Expert</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3Cfilter id='glow'%3E%3CfeGaussianBlur stdDeviation='4'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23glow)'%3E%3Ccircle cx='60' cy='60' r='12' fill='%2300f0ff'/%3E%3Ccircle cx='160' cy='50' r='12' fill='%2300f0ff'/%3E%3Ccircle cx='70' cy='130' r='12' fill='%2300f0ff'/%3E%3Ccircle cx='150' cy='150' r='12' fill='%2300f0ff'/%3E%3Cline x1='60' y1='60' x2='160' y2='50' stroke='%2300f0ff' stroke-width='12' stroke-linecap='round'/%3E%3Cline x1='60' y1='60' x2='70' y2='130' stroke='%2300f0ff' stroke-width='12' stroke-linecap='round'/%3E%3Cline x1='70' y1='130' x2='150' y2='150' stroke='%2300f0ff' stroke-width='12' stroke-linecap='round'/%3E%3Cline x1='160' y1='50' x2='110' y2='100' stroke='%2300f0ff' stroke-width='12' stroke-linecap='round'/%3E%3Cline x1='110' y1='100' x2='70' y2='130' stroke='%2300f0ff' stroke-width='12' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: #050508;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient floating background glows */
+        .ambient-glow {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.07) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 15%;
+            left: -10%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float-slow 18s ease-in-out infinite;
+            filter: blur(60px);
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 0, 127, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 55%;
+            right: -10%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float-slow-reverse 22s ease-in-out infinite;
+            filter: blur(80px);
+        }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-40px) scale(1.06); }
+        }
+
+        @keyframes float-slow-reverse {
+            0%, 100% { transform: translateY(0px) scale(1.06); }
+            50% { transform: translateY(40px) scale(1); }
+        }
+
+        /* Animated starfield background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate, drift-up 25s linear infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes drift-up {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-120px); }
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 8, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 240, 255, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: rotate 10s linear infinite;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00f0ff, #ff007f);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #00f0ff;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #00f0ff, #ff007f);
+            background-size: 200% auto;
+            color: #fff;
+            padding: 0.75rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s, background-position 0.4s;
+        }
+
+        .cta-button:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.4);
+        }
+
+        .page-header {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 12rem 5% 6rem;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.1) 0%, transparent 60%);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 15%, #00f0ff 45%, #ff007f 75%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: shimmer 4s linear infinite;
+            letter-spacing: -2px;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
+        .page-header p {
+            font-size: 1.4rem;
+            color: #ccc;
+            max-width: 900px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #fff, #00f0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .story-section {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .story-section p {
+            font-size: 1.15rem;
+            color: #ccc;
+            line-height: 1.9;
+            margin-bottom: 1.8rem;
+            font-weight: 300;
+        }
+
+        .story-section .highlight {
+            color: #00f0ff;
+            font-weight: 600;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        /* Aesthetic Glassmorphic Team Card */
+        .team-card {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            border-radius: 24px;
+            padding: 3rem;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.4), rgba(255, 0, 127, 0.15));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.6;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .team-card:hover::before {
+            background: linear-gradient(135deg, #00f0ff, #ff007f);
+            opacity: 1;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px) scale(1.015);
+            border-color: rgba(255, 0, 127, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.2), 0 0 1px rgba(255, 0, 127, 0.3);
+        }
+
+        .team-badge {
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.15);
+            color: #00f0ff;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .team-card .role {
+            color: #ff007f;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .team-card p {
+            color: #bbb;
+            line-height: 1.8;
+            font-weight: 300;
+            font-size: 1rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        /* Aesthetic Glassmorphic Value Card */
+        .value-card {
+            text-align: center;
+            padding: 3rem 2.5rem;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            border-radius: 24px;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 0, 127, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.2);
+        }
+
+        .value-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.4));
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #00f0ff;
+            font-weight: 700;
+        }
+
+        .value-card p {
+            color: #bbb;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 8rem 5%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 0, 127, 0.1) 0%, transparent 60%);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #ff007f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-section p {
+            font-size: 1.4rem;
+            color: #aaa;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, #00f0ff, #ff007f);
+            background-size: 200% auto;
+            color: #fff;
+            padding: 1.2rem 3rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.15rem;
+            transition: transform 0.3s, box-shadow 0.3s, background-position 0.4s;
+            display: inline-block;
+        }
+
+        .button-primary:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 240, 255, 0.4);
+        }
+
+        footer {
+            background: #050508;
+            border-top: 1px solid rgba(0, 240, 255, 0.15);
+            padding: 4rem 5% 3rem;
+            text-align: center;
+            color: #777;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 4%;
+                flex-wrap: wrap;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem 0;
+                background: rgba(5, 5, 8, 0.95);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .cta-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .page-header {
+                padding: 10rem 4% 4rem;
+                min-height: 40vh;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem !important;
+                letter-spacing: -1px;
+            }
+
+            .section {
+                padding: 4rem 4%;
+            }
+
+            .section-title {
+                font-size: 2.2rem !important;
+            }
+
+            .team-grid,
+            .values-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem;
+            }
+
+            .team-card,
+            .value-card {
+                padding: 2rem !important;
+            }
+
+            footer {
+                padding: 2rem 4%;
+            }
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #00f0ff;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex !important;
+            }
+
+            .nav-links {
+                position: fixed !important;
+                left: -100% !important;
+                top: 70px !important;
+                flex-direction: column !important;
+                background: rgba(5, 5, 8, 0.98) !important;
+                width: 100% !important;
+                padding: 2rem !important;
+                transition: left 0.3s !important;
+                z-index: 999 !important;
+                border-top: 1px solid #00f0ff;
+            }
+
+            .nav-links.active {
+                left: 0 !important;
+            }
+
+            .nav-links li {
+                margin: 1rem 0 !important;
+            }
+
+            .cta-button {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient glows -->
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow-2"></div>
+
+    <div class="stars" id="starfield"></div>
+
+    <nav class="nav">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00f0ff" />
+                            <stop offset="100%" stop-color="#ff007f" />
+                        </linearGradient>
+                    </defs>
+                    <g filter="url(#glow)">
+                        <circle cx="60" cy="60" r="12" fill="url(#logoGrad)"/>
+                        <circle cx="160" cy="50" r="12" fill="url(#logoGrad)"/>
+                        <circle cx="70" cy="130" r="12" fill="url(#logoGrad)"/>
+                        <circle cx="150" cy="150" r="12" fill="url(#logoGrad)"/>
+                        <line x1="60" y1="60" x2="160" y2="50" stroke="url(#logoGrad)" stroke-width="12" stroke-linecap="round"/>
+                        <line x1="60" y1="60" x2="70" y2="130" stroke="url(#logoGrad)" stroke-width="12" stroke-linecap="round"/>
+                        <line x1="70" y1="130" x2="150" y2="150" stroke="url(#logoGrad)" stroke-width="12" stroke-linecap="round"/>
+                        <line x1="160" y1="50" x2="110" y2="100" stroke="url(#logoGrad)" stroke-width="12" stroke-linecap="round"/>
+                        <line x1="110" y1="100" x2="70" y2="130" stroke="url(#logoGrad)" stroke-width="12" stroke-linecap="round"/>
+                    </g>
+                </svg>
+            </div>
+            <span>SkoolyAI Expert</span>
+        </a>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="datasets.html">Datasets</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contribute.html">Contribute</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+        </ul>
+        <a href="get-started.html" class="cta-button">Get Started</a>
+    </nav>
+
+    <section class="page-header">
+        <div>
+            <h1>Our Story</h1>
+            <p>We're not just another data platform. We're an operations engine built on speed, accuracy, and relentless execution.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="story-section">
+            <h2 class="section-title">How We Started</h2>
+            <p>
+                SkoolyAI Expert didn't start in a boardroom or with a pitch deck. It started with a simple observation: <span class="highlight">AI companies don't have a data problem—they have a delivery problem.</span>
+            </p>
+            <p>
+                While everyone was building platforms and fancy UX, we went on-ground. Four cities. Over 1,000 face-to-face meetings with PhDs, engineers, finance professionals, and domain experts. We didn't collect emails—we built relationships. We didn't promise work—we delivered it.
+            </p>
+            <p>
+                Within 6 months, we had <span class="highlight">500+ active contributors, 5 completed projects, and $30K in revenue</span>—all without a formal platform. How? Because we treated AI data creation as a supply chain problem, not a software problem.
+            </p>
+            <p>
+                Our advantage is simple: <span class="highlight">we have the machine loaded before projects even start.</span> While competitors scramble to find workers after landing clients, our giant supply volume is already trained, verified, and ready to execute.
+            </p>
+            <p>
+                That's why we deliver <span class="highlight">2× faster and 45% cheaper</span> than traditional vendors. It's not magic—it's operations.
+            </p>
+        </div>
+    </section>
+
+    <section class="section" style="background: rgba(0, 240, 255, 0.01); margin: 0; padding: 6rem 5%; max-width: none; border-top: 1px solid rgba(0, 240, 255, 0.1); border-bottom: 1px solid rgba(0, 240, 255, 0.1);">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <h2 class="section-title" style="text-align: center;">The Team</h2>
+            <p style="text-align: center; color: #aaa; font-size: 1.2rem; margin-bottom: 4rem; font-weight: 300;">
+                Small team. Big execution. Relentless standards.
+            </p>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <span class="team-badge">Strategic Guidance</span>
+                    <h3>The Mentor</h3>
+                    <p class="role">Strategic Advisor</p>
+                    <p>
+                        The backbone of SkoolyAI Expert. A veteran from high-growth startups who has seen scale happen and knows what it takes. Guides our strategy, challenges our assumptions, and keeps us focused on what matters: execution and results. Prefers to stay behind the scenes while we build.
+                    </p>
+                </div>
+
+                <div class="team-card">
+                    <span class="team-badge">Operations Leadership</span>
+                    <h3>Rishabhh Mishra</h3>
+                    <p class="role">Head of Operations</p>
+                    <p>
+                        The mastermind behind how SkoolyAI Expert operates. A management obsessive who works 16+ hours demanding accuracy at speed. Every system, every process, every workflow—Rishabhh engineered it. If operations were an art form, he'd be Picasso. Relentless, precise, and refuses to compromise on quality.
+                    </p>
+                </div>
+
+                <div class="team-card">
+                    <span class="team-badge">Operations Coordination</span>
+                    <h3>Shivam Mishra</h3>
+                    <p class="role">Operations Coordinator</p>
+                    <p>
+                        Started as an operations intern, now coordinates the entire operations flow. Learned by doing—managing contributors, routing tasks, ensuring quality at every step. Puts in rigorous hours to turn projects around on tight deadlines. Proof that execution beats experience when you're willing to learn fast.
+                    </p>
+                </div>
+
+                <div class="team-card">
+                    <span class="team-badge">Operations Analysis</span>
+                    <h3>Fauzan Mujawar</h3>
+                    <p class="role">Operations Analyst</p>
+                    <p>
+                        Joined as recruitment coordinator, now analyzes and optimizes operations. Learned how to manage people, processes, and performance metrics under pressure. Works relentlessly to ensure every contributor is matched to the right task and every project delivers on time. Growth mindset in action.
+                    </p>
+                </div>
+                <div class="team-card">
+                    <span class="team-badge">Operations Specialist</span>
+                    <h3>Bhargav Nadiyana</h3>
+                    <p class="role">Operations Specialist</p>
+                    <p>
+                        Contributed to building internal tooling to support day-to-day operations. Assisted with process automation and operational workflows, gaining hands-on experience in systems thinking and execution. Brings a practical, builder mindset and learns fast in fast-moving environments.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title" style="text-align: center;">Our Values</h2>
+        <p style="text-align: center; color: #aaa; font-size: 1.2rem; margin-bottom: 4rem; font-weight: 300;">
+            What drives us every single day
+        </p>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">⚡</div>
+                <h3>Speed Wins</h3>
+                <p>We don't believe in slow iteration. We believe in fast execution, rapid learning, and delivering results before competitors finish planning.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <h3>Accuracy Matters</h3>
+                <p>Speed without accuracy is chaos. We demand both. Every dataset, every task, every output—verified, peer-reviewed, and production-ready.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🔧</div>
+                <h3>Operations First</h3>
+                <p>Great software doesn't guarantee great results. Great operations do. We're obsessed with processes, systems, and execution—not just features.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">📈</div>
+                <h3>Volume is Power</h3>
+                <p>Our 500+ contributor network isn't a metric—it's our competitive advantage. Giant supply volume means we're always ready to deliver.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Want to Work With Us?</h2>
+        <p>Whether you're a client looking for high-quality datasets or an expert ready to contribute.</p>
+        <a href="contribute.html" class="button-primary">Join Our Network</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 SkoolyAI Expert. All rights reserved.</p>
+        <p style="margin-top: 1rem; color: #555;">Building the future of AI training data, one dataset at a time.</p>
+    </footer>
+
+    <script>
+        function createStars() {
+            const starfield = document.getElementById('starfield');
+            const numStars = 110;
+            const colors = ['#ffffff', '#00f0ff', '#ff007f', '#a855f7', '#00ffcc'];
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 2.2 + 0.8;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 4}s`;
+                star.style.animationDuration = `${Math.random() * 4 + 3}s, ${Math.random() * 15 + 15}s`;
+                star.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                if (Math.random() > 0.6) {
+                    star.style.boxShadow = `0 0 8px ${star.style.background}`;
+                }
+                
+                starfield.appendChild(star);
+            }
+        }
+
+        createStars();
+    </script>
+    <script>
+    // Hamburger menu
+    var hamburger = document.getElementById('hamburger');
+    var navLinks = document.getElementById('navLinks');
+    if (hamburger && navLinks) {
+        hamburger.onclick = function() {
+            navLinks.classList.toggle('active');
+        };
+    }
+    </script>
+</body>
+</html>
